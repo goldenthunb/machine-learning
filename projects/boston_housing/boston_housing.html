@@ -11898,11 +11898,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Minimum price of the data</span>
-<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
+<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Maximum price of the data</span>
 <span class="n">maximum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
@@ -11941,7 +11941,7 @@ div#notebook {
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Statistics for Boston housing dataset:
 
-Minimum price: $438,900.00
+Minimum price: $105,000.00
 Maximum price: $1,024,800.00
 Mean price: $454,342.94
 Median price $438,900.00
@@ -14012,7 +14012,10 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong> Hint: </strong> The answer comes from the output of the code snipped above.</p>
 <p><strong>Answer: </strong>
---&gt; Per the graphs provided, I had guessed the maximum depth as 3, the optimal model has given the maximum depth as 4.</p>
+--&gt; Per the graphs provided, I had guessed the maximum depth as 3, as the Training and Testing curves converged the best. 
+The optimal model has given the maximum depth as 4. This is one depth higher than my guess. The fit_model function
+is able to go through all the depths from 1 to 10 and determine hte bext fit. If the graphs were provided for each of the depth
+there is a chance I could have determined it visually.</p>
 
 </div>
 </div>
@@ -14063,7 +14066,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Produce a matrix for client data</span>
@@ -14107,13 +14110,13 @@ Predicted selling price for Client 3&#39;s home: $931,636.36
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong>
 Referencing from question 6
-Minimum price: $438,900.00
+Minimum price: $105,000.00
 Maximum price: $1,024,800.00
 Mean price: $454,342.94
 Median price $438,900.00
 Standard deviation of prices: $165,171.13</p>
 
-<pre><code>--&gt; For Client 1 the predicted price seems a little bit lower as it is lower than the minimim price even though the number of rooms is 5  and poverty level is in the middle range. and the Student teacher ratio is also low.
+<pre><code>--&gt; For Client 1 the predicted price seems a little bit lower as it is lower than the mean price even though the number of rooms is 5  and poverty level is in the middle range. and the Student teacher ratio is also in the middle range.
 --&gt; For Client 2, the predicted price seems reasonable as the Poverty rate is high and the Student teacher ratio is also on the higher side.
 --&gt; For Client 3, the predicted price seems reasonable as looking at the raw data I see some 7 bedroom houses a little over $1 million. The Poverty rate is very low and the Student teacher ratio is low as well. The predicted price is less than the maximum.</code></pre>
 
