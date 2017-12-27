@@ -20368,11 +20368,11 @@ CyZJkiRJ6rBgkiRJkqSO/wUmsGpjgOjg6AAAAABJRU5ErkJggg==
 <p><strong>Answer:</strong></p>
 <p>First and second PCA variance = 0.4430 + 0.2638 = 0.7068
 First four PCA variance = 0.4430 + 0.2638 + 0.1231 + 0.1012 = 0.9311</p>
-<p>PCA explains the spending patters for eahc component features.</p>
-<p>The first PCA 44.30% has the highest variance. Fresh and Frozen are the highest purchases for this group.
-The second PCA 26.38% has the next variance. However here all the features have negative weights. The weight of Fresh, frozen, deli are the highest toward the -ve.</p>
-<p>For third this group of customers bought more of Frozen and Deli.
-while for fourth group the Frozen is very high followed by Detergent Paper</p>
+<p>PCA explains the spending patterns for each component features. in relation to one another for each dimension.</p>
+<p>The first PCA 44.30% has the highest variance. Fresh and Frozen are the highest purchases for this group.While Milk, Grocery, Detergents_paper and Deli have an opposite affect on this dimension. This would indicate to separate out the customers who buyu Fresh more as a separate cluster as they may have a different buying pattern.</p>
+<p>The second PCA 26.38% has the next variance. However here all the features have negative weights. The weights of Fresh, frozen, deli are the highest toward the -ve. This group of customers bought less of Milk, Grocery and Detergent_Paper</p>
+<p>The third PCA group of customers Fresh and Detergents have weights on one side and less weight of Grocery , while the Milk, Frozen and Deli have +ve weight. The weight of Milk and Grocery is very less for this group of customers.</p>
+<p>For the fourth component, customers by far bought more of Frozen, followed by Detergents_Paper, Grocery and Milk. Deli and Fresh have a -ve weight for this group of customers.</p>
 
 </div>
 </div>
@@ -21749,7 +21749,8 @@ TkSuQmCC
              <a href="https://www.quora.com/What-is-the-difference-between-K-means-and-the-mixture-model-of-Gaussian">https://www.quora.com/What-is-the-difference-between-K-means-and-the-mixture-model-of-Gaussian</a></p>
 <p>Advantages of K-means clustering: Relatively faster and simpler to understand. It works well when there are distinct clusters in the data set. K-means clustering splits the dataset into k number of clusters. K centroids are randomly chosen. The algorithm iterates to assign each data point to the nearest centroid based on the squered eucledian distance. Then it updates the centroid by taking the mean of all the datapoints assigned to that cluster. As a result the algorithm is guaranteed to converge.</p>
 <p>Advantages of Gussian Mixture Model : K means calculates distance whereas, Gussian Mixture Model calculates the "weighted" distance. GMM is much more flexible than k-means allsowing for soft assignments of points. The same point can be a member of multiple clusters. while in k-means each point is forced to be a part of one cluster only.</p>
-<p>Considering our wholesale customer data, I would use the GMM looking at the two dimentional plot above, I dont see 
+<p>Looking at the wholesale data so far, the different kinds of establishments would probably range from one where Fresh is the main component to, mizture of Fresh and non-perishables to purely non-Fresh, non-perishables establishments. The data distribusion as such does not show very distinct clusters, indicating establishments are customers for various categories with different weights.</p>
+<p>Hence, considering our wholesale customer data, I would use the GMM looking at the two dimentional plot above, I dont see 
 a pattern of distinct clusters. Hence a density cluster using probability is better method.</p>
 
 </div>
@@ -23730,9 +23731,28 @@ QmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong>
-In Segment 0, the establishment focusses more on the Fresh produce as a proportion of the total. These probably would be Oraganic, fresh produce kind of places.
-In Segment 1,  Grocery are higher of the total percentage. These would be regular Grocery stores.</p>
+<p><strong>Answer:</strong></p>
+<p>Comapring the true centers to the mean value from original data:</p>
+
+<pre><code>    Fresh      Milk       Grocery      Frozen      Detergents_Paper Delicatessen
+</code></pre>
+<p>mean    12000      5796       7951        3071         2881             1524</p>
+<p>Closer  Segment0    Segment1    Segment1    In Between  Segment1         Segment1
+Segment</p>
+<p>Data from Samples chosen:</p>
+
+<pre><code>        Fresh   Milk    Grocery Frozen  Detergents_Paper    Delicatessen    
+</code></pre>
+<p>Sample 0    6353    8808    7684    2405    3516    7844
+Sample 1    16117   46197   92780   1026    40827   2944
+Sample 2    43265   5025    8117    6312    1579    14351</p>
+<p>We see that Segment  0, the true center is closer to mean of the Fresh, the Grocery of the true center in this establishment focusses more on the Fresh produce as a proportion of the total. These probably would be Oraganic, fresh produce kind of places.</p>
+<p>In Segment 1,  Grocery are higher of the total percentage. These would be regular Grocery stores. carrying Griocery, as the major sales, with some of Milk, Frozen, Detergents_Paper, Fresh and Deli.</p>
+<p>Analysis of Sample points chosen:</p>
+<p>Comparing the value of the Sample points with the True centers
+Sample 0 , should fall in Segment 1
+Sample 1, should fall in Segment 1
+Sample 2, should fall in Segment 0</p>
 
 </div>
 </div>
@@ -23831,9 +23851,18 @@ However, I had expected Sample point 2 to be in Cluster 2 , as it spends a highe
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-Customer who buy Fresh products more will probably be more affected by this change. as the shelf life of the products is less
+An A/B test can be run in this manner :
+Within each cluster, consider a control group and treatment group.
+The treatment group in each cluster recieves the change in delivery service.
+Perform a survey to determine the customer satisfaction rate by setting a threshold value on the reaction.
+If the experiment causes churn within the treatment group then it is not good for the distributor. If the satisfaction
+rate falls below the threshold then the change had a negative effect. On the contrary, if the saisfaction rate is greater
+than the threshold rate then the change's effect was positive.</p>
+<p>The control group and treatment group needs to be a good representative sample set for this experiment to be effective.
+Based on the results of this test and the reaction of the customers, an informed decision can be made whether to roll out
+the change to the entire customer base.</p>
+<p>Customer who buy Fresh products more will probably be more affected by this change. as the shelf life of the products is less
 and probably there is a premium paid for these products.</p>
-<p>The distributor should take a survey from the customers before making any changes. Then they should select a sample size for each segment, and make a temporary change for them only. Then after a few weeks they can get the survey feedback again and determine if it has adversely affected their customers.</p>
 <p>It is possible that the distributor concludes to make this change to the non-perishables rather than Fresh products.</p>
 
 </div>
