@@ -13122,13 +13122,18 @@ is always greater than the number of good decisions. This suggests the agent is 
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-'waypoint'  is important for both Safety and efficiency. Since this is the action that the Smartcab takes.</p>
-<p>'inputs' all the sensor information ('light', 'left' 'right', 'oncoming') are important to both safety and efficiency.
+'waypoint'  is important for both Efficiency. Since this is the action that the Smartcab takes towards the destination.
+With each action the Smartcab takes, the goal would be to get closer to the destination as fast as possible.Relative to
+where it is currently heading, based on the light and oncoming traffic, and hte policy it has learnt, the Smartcab would take a decision at the'waypoint' heading towards the final destination.</p>
+<p>'inputs' all the sensor information ('light', 'left' 'right', 'oncoming') are important to both safety.
 Using the information from the sensors, the Smartcab can determine what action to take e.g if light is Red then do not move.
-If light is Green then check the intended action of the vehicle to the left and to the right etc.</p>
+If light is Green then check the intended action of the vehicle to the left and to the right etc.  Since causing a violation doesn't actually affect the simulation, the system simply awards penalties and continues, this means violating the rules with regards to Inputs doesn't in any way affect efficiency.</p>
+<p>It is important to know the color of the 'light', as crossing an intersection at a red light could at worst lead to a collision and at best lead to a violation
+it is important to know intended direction of travel for a vehicle to the Smartcab's left. If there is a vechile on the left
+then if the Smartcab decides to go left then there would be a collision.
+Similarly it is important to know the intended direction of travel for a vehicle on the right. If there is a vehicle on the right then if the Smartcab decides to go right, there would be a collision.</p>
 <p>'deadline' is a feature which is not appropriate for Safety.  This feature is more appropriate for Efficiency.
-This is because if the Smartcab number of actions remaining/deadline becomes zero, then the Smartcab will not reach the destination. Hence it wont move even when it is supposed to causing an issue for Safety.</p>
-<p>In addition, including the deadline would increase the number of states exponentially and it would take a long time for the q-matrix to converge. Also inclusing 'deadline' might cause the agent to make illegal actions when the deadline is near.</p>
+This is because if the Smartcab number of actions remaining/deadline becomes zero, then the Smartcab will not reach the destination. Hence it wont move even when it is supposed to causing an issue for Safety. Also including 'deadline' might cause the agent to make illegal actions when the deadline is near.</p>
 
 </div>
 </div>
@@ -16660,6 +16665,41 @@ which is a significant improvement. In the default Q-learner the Safety Rating w
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
+<p>The Optimal Policy for the smartcab is as below::</p>
+
+<pre><code>Waypoint    Light   Oncoming  Optimal Policy
+Left    Green   Forward None
+Left    Green   Right   None
+
+Left    Green   Left    Left
+Left    Green   None    Left
+Left    Red Forward None
+Left    Red Right   None
+Left    Red Left    None
+Left    Red None    None
+Right   Green   Forward Right
+Right   Green   Right   Right
+Right   Green   Left    Right
+Right   Green   None    Right
+Right   Red Forward Right
+Right   Red Right   Right
+Right   Red Left    None
+Right   Red None    Right
+Forward Green   Forward Forward
+Forward Green   Right   Forward
+Forward Green   Left    Forward
+Forward Green   None    Forward
+Forward Red Forward None
+Forward Red Right   None
+Forward Red Left    None
+Forward Red None    None
+
+</code></pre>
+<p>We know that when the Light is Green, and the Waypoint is Forward or Right the Optimal Policy is Forward or Right irrespective of the oncoming traffic.
+When the Waypointis Right and the light is Red then only when the Oncoming traffic is turning Left, the Optimal Policy is None, in all other cases the Smartcab can turn Right.
+When the waypoint is forward and the light is Red, irrespective if the Oncoming traffic the Optimal Poligy is None.
+When the Waypoint is Left and the Light is Green if the oncoming traffic is wither moving forward or turning Right, the Optimal policy is None. else the Smartcab can move Left
+When the Waypoint is Left and the light is Red, the Optimal policy is always None</p>
 <p>The Optimal policy is based on the state table. For each state in the environment based on the values of the inputs the corresponding output disposition is the appropriate action to take. E.g if the cab needs to go 'forward' and the light is 'green' and the oncoming traffic is 'None' then the disposition is to go 'forward'.</p>
 <p>Waypoint    light   oncoming Disposition<br>
     left    green   forward right
